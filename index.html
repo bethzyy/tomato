@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>番茄闹钟</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>番茄闹钟</h1>
+        
+        <div class="time-setting">
+            <label for="timeInput">时间（分钟）：</label>
+            <input type="number" id="timeInput" min="1" max="120" value="40">
+        </div>
+        
+        <div class="timer-display">
+            <span id="minutes">40</span>:<span id="seconds">00</span>
+        </div>
+        
+        <div class="controls">
+            <button id="startBtn">开始计时</button>
+            <button id="pauseBtn" disabled>暂停</button>
+            <button id="resetBtn">重置</button>
+        </div>
+        
+        <div class="status">
+            <span id="statusText">准备开始</span>
+        </div>
+    </div>
+    
+    <audio id="alarmSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>
