@@ -13,7 +13,7 @@ body {
     align-items: center;
     color: #333;
     margin: 0;
-    padding: 10px;
+    padding: 0;
     -webkit-user-select: none; /* 禁止选中文本 */
     -moz-user-select: none;
     -ms-user-select: none;
@@ -21,39 +21,40 @@ body {
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     text-align: center;
-    min-width: 350px;
-    backdrop-filter: blur(10px);
+    min-width: 270px;
+    max-width: 320px;
 }
 
 h1 {
-    font-size: 2.5em;
-    margin-bottom: 30px;
+    font-size: 1.8em;
+    margin-bottom: 10px;
     color: #4a5568;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .time-setting {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .time-setting label {
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: bold;
-    margin-right: 10px;
+    margin-right: 5px;
     color: #4a5568;
 }
 
 .time-setting input {
-    width: 80px;
-    padding: 10px;
-    font-size: 1.2em;
+    width: 60px;
+    padding: 4px;
+    margin: 0 5px;
+    font-size: 13px;
     border: 2px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     background: #f7fafc;
     color: #4a5568;
@@ -66,9 +67,9 @@ h1 {
 }
 
 .timer-display {
-    font-size: 4em;
+    font-size: 2.5em;
     font-weight: bold;
-    margin: 30px 0;
+    margin: 15px 0;
     color: #2d3748;
     font-family: 'Courier New', monospace;
     background: linear-gradient(45deg, #667eea, #764ba2);
@@ -77,26 +78,44 @@ h1 {
     background-clip: text;
 }
 
+.progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 3px;
+    height: 12px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 10px;
+}
+
 .controls {
-    margin: 30px 0;
+    margin: 10px 0;
     display: flex;
-    gap: 15px;
+    gap: 8px;
     justify-content: center;
 }
 
 .controls button {
-    padding: 15px 25px;
-    font-size: 1.1em;
+    padding: 8px 14px;
+    margin: 0 3px;
+    font-size: 13px;
     font-weight: bold;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 #startBtn {
-    background: linear-gradient(45deg, #48bb78, #38a169);
+    background-color: #4CAF50;
     color: white;
 }
 
@@ -106,7 +125,7 @@ h1 {
 }
 
 #pauseBtn {
-    background: linear-gradient(45deg, #ed8936, #dd6b20);
+    background-color: #ff9800;
     color: white;
 }
 
@@ -116,7 +135,7 @@ h1 {
 }
 
 #resetBtn {
-    background: linear-gradient(45deg, #e53e3e, #c53030);
+    background-color: #f44336;
     color: white;
 }
 
@@ -132,14 +151,17 @@ h1 {
 }
 
 .status {
-    margin-top: 20px;
-    font-size: 1.1em;
+    margin-top: 8px;
+    font-size: 15px;
     font-weight: bold;
     color: #4a5568;
-    padding: 10px;
+    padding: 6px;
     background: rgba(102, 126, 234, 0.1);
     border-radius: 10px;
     border-left: 4px solid #667eea;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 @keyframes pulse {
@@ -159,16 +181,16 @@ h1 {
 
 @media (max-width: 480px) {
     .container {
-        padding: 20px;
-        min-width: 300px;
+        padding: 15px;
+        min-width: 280px;
     }
     
     h1 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
     
     .timer-display {
-        font-size: 3em;
+        font-size: 2.5em;
     }
     
     .controls {
@@ -177,6 +199,6 @@ h1 {
     }
     
     .controls button {
-        width: 200px;
+        width: 180px;
     }
 }

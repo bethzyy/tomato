@@ -9,6 +9,8 @@ class PomodoroTimer {
         this.statusText = document.getElementById('statusText');
         this.alarmSound = document.getElementById('alarmSound');
         this.timerDisplay = document.querySelector('.timer-display');
+        this.timeUnit = document.getElementById('timeUnit');
+        this.progressBar = document.getElementById('progressBar');
         
         this.totalSeconds = 0;
         this.remainingSeconds = 0;
@@ -27,11 +29,23 @@ class PomodoroTimer {
     
     loadSavedTime() {
         const savedTime = localStorage.getItem('pomodoroTime');
+        const savedUnit = localStorage.getItem('pomodoroUnit') || 'minutes';
+        
         if (savedTime) {
-            this.timeInput.value = savedTime;
+            // 如果之前保存的是秒为单位的时间，需要转换回分钟显示
+            const timeValue = parseInt(savedTime);
+            if (savedUnit === 'seconds') {
+                this.timeInput.value = timeValue;
+            } else {
+                // 如果是分钟为单位，转换为分钟显示
+                this.timeInput.value = timeValue / 60;
+            }
         } else {
-            this.timeInput.value = 40; // 默认40分钟
+            this.timeInput.value = 25; // 默认25分钟
         }
+        
+        // 设置单位选择器
+        document.getElementById('timeUnit').value = savedUnit;
     }
     
     saveTime() {
@@ -56,16 +70,28 @@ class PomodoroTimer {
             return;
         }
         
-        const minutes = parseInt(this.timeInput.value);
-        if (isNaN(minutes) || minutes <= 0) {
-            alert('请输入有效的时间（分钟）');
+        const timeValue = parseInt(this.timeInput.value);
+        const timeUnit = document.getElementById('timeUnit').value;
+        
+        if (isNaN(timeValue) || timeValue <= 0) {
+            alert('请输入有效的时间');
             return;
         }
         
-        this.totalSeconds = minutes * 60;
+        // 根据选择的单位计算总秒数
+        if (timeUnit === 'minutes') {
+            this.totalSeconds = timeValue * 60;
+        } else { // seconds
+            this.totalSeconds = timeValue;
+        }
+        
         this.remainingSeconds = this.totalSeconds;
         this.isRunning = true;
         this.isPaused = false;
+        
+        // 保存设置到本地存储
+        localStorage.setItem('pomodoroTime', timeValue);
+        localStorage.setItem('pomodoroUnit', timeUnit);
         
         this.startBtn.disabled = true;
         this.pauseBtn.disabled = false;
@@ -122,6 +148,7 @@ class PomodoroTimer {
         }
         
         this.updateDisplay();
+        this.updateProgress(); // 重置进度条
     }
     
     countdown() {
@@ -133,6 +160,7 @@ class PomodoroTimer {
             
             this.remainingSeconds--;
             this.updateDisplay();
+            this.updateProgress();
         }, 1000);
     }
     
@@ -217,13 +245,32 @@ class PomodoroTimer {
             minutes = Math.floor(this.remainingSeconds / 60);
             seconds = this.remainingSeconds % 60;
         } else {
-            const inputMinutes = parseInt(this.timeInput.value) || 40;
-            minutes = inputMinutes;
-            seconds = 0;
+            // 如果计时器未运行，根据选择的单位显示时间
+            const inputTime = parseInt(this.timeInput.value) || 25;
+            const timeUnit = document.getElementById('timeUnit').value;
+            
+            if (timeUnit === 'minutes') {
+                // 如果是分钟单位，转换为分钟和秒
+                minutes = inputTime;
+                seconds = 0;
+            } else { // seconds
+                // 如果是秒单位，计算分钟和秒
+                minutes = Math.floor(inputTime / 60);
+                seconds = inputTime % 60;
+            }
         }
         
         this.minutesDisplay.textContent = minutes.toString().padStart(2, '0');
         this.secondsDisplay.textContent = seconds.toString().padStart(2, '0');
+    }
+    
+    updateProgress() {
+        if (this.totalSeconds > 0) {
+            const progressPercent = ((this.totalSeconds - this.remainingSeconds) / this.totalSeconds) * 100;
+            this.progressBar.style.width = progressPercent + '%';
+        } else {
+            this.progressBar.style.width = '0%';
+        }
     }
     
     formatTime(seconds) {

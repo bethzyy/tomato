@@ -39,7 +39,7 @@ def main():
     url = f'http://localhost:{port}/index.html'
     
     # 创建webview窗口
-    webview.create_window('番茄闹钟', url=url, width=500, height=700, resizable=True, min_size=(350, 600))
+    webview.create_window('番茄闹钟', url=url, width=330, height=460, resizable=False, min_size=(280, 400))
     webview.start(debug=False)  # 关闭调试模式以便双击运行
     
     # 应用关闭后停止服务器
