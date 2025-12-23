@@ -13,9 +13,9 @@
 
 ## 使用方法
 
-### 方式一：直接运行可执行文件（推荐）
-1. 运行 `dist` 目录下的 `PomodoroTimer.exe` 文件
-2. 或运行 `番茄闹钟.bat` 批处理文件快速启动
+### 方式一：直接运行可执行文件
+1. 构建后运行 `dist` 目录下的 `PomodoroTimer.exe` 文件（需要先运行 `build_app.bat` 构建）
+2. 或运行 `番茄闹钟.bat` 批处理文件快速启动（源码运行方式）
 
 ### 方式二：源码运行
 1. 确保已安装Python 3.x和webview库
@@ -31,7 +31,6 @@
 - `script.js` - 客户端交互逻辑
 - `build_app.bat` - 构建脚本
 - `PomodoroTimer_optimized.spec` - PyInstaller优化配置文件
-- `dist/` - 构建输出目录
 - `番茄闹钟.bat` - 快速启动批处理文件
 
 ## 优化特性

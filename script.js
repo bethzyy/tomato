@@ -110,6 +110,7 @@ class PomodoroTimer {
         this.startBtn.textContent = '继续';
         this.pauseBtn.disabled = true;
         this.statusText.textContent = '已暂停';
+        this.statusText.classList.remove('blinking'); // 移除闪烁类
         this.timerDisplay.classList.remove('running');
         
         if (this.intervalId) {
@@ -140,12 +141,17 @@ class PomodoroTimer {
         this.pauseBtn.disabled = true;
         this.timeInput.disabled = false;
         this.statusText.textContent = '准备开始';
+        this.statusText.classList.remove('blinking'); // 移除闪烁类
         this.timerDisplay.classList.remove('running', 'finished');
         
         if (this.intervalId) {
             clearInterval(this.intervalId);
             this.intervalId = null;
         }
+        
+        // 重置计时器相关变量
+        this.totalSeconds = 0;
+        this.remainingSeconds = 0;
         
         this.updateDisplay();
         this.updateProgress(); // 重置进度条
@@ -173,6 +179,7 @@ class PomodoroTimer {
         this.pauseBtn.disabled = true;
         this.timeInput.disabled = false;
         this.statusText.textContent = '时间到！';
+        this.statusText.classList.add('blinking'); // 添加闪烁类
         this.timerDisplay.classList.remove('running');
         this.timerDisplay.classList.add('finished');
         

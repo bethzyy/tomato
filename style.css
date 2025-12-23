@@ -6,14 +6,15 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* 恢复蓝色渐变背景 */
+    min-height: 0; /* 改为最小高度为0 */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* 改为顶部对齐，让组件上移 */
     color: #333;
     margin: 0;
-    padding: 0;
+    padding: 5px 0; /* 减少垂直内边距 */
+    overflow: hidden; /* 防止出现滚动条 */
     -webkit-user-select: none; /* 禁止选中文本 */
     -moz-user-select: none;
     -ms-user-select: none;
@@ -22,23 +23,31 @@ body {
 
 .container {
     background: rgba(255, 255, 255, 0.9);
-    padding: 5px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 4px; /* 进一步减少内边距以降低对话框高度 */
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    min-width: 270px;
-    max-width: 320px;
+    min-width: 240px; /* 进一步减少最小宽度 */
+    max-width: 260px; /* 进一步减少最大宽度 */
+    width: auto; /* 自适应宽度 */
+    height: auto; /* 自适应高度 */
 }
 
 h1 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
+    font-size: 1.4em; /* 恢复原始字体大小 */
+    margin-bottom: 4px; /* 恢复原始下边距 */
     color: #4a5568;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .time-setting {
-    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px; /* 恢复原始间距 */
+    padding: 3px; /* 恢复原始内边距 */
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
 }
 
 .time-setting label {
@@ -67,12 +76,12 @@ h1 {
 }
 
 .timer-display {
-    font-size: 2.5em;
+    font-size: 1.9em; /* 恢复原始字体大小 */
     font-weight: bold;
-    margin: 15px 0;
+    margin: 4px 0; /* 恢复原始间距 */
     color: #2d3748;
     font-family: 'Courier New', monospace;
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: linear-gradient(45deg, #667eea, #764ba2); /* 恢复蓝色渐变 */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -80,10 +89,10 @@ h1 {
 
 .progress-container {
     width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    margin-bottom: 3px;
-    height: 12px;
+    background-color: #e2e8f0;
+    border-radius: 6px;
+    margin-bottom: 3px; /* 恢复原始底部间距 */
+    height: 10px; /* 恢复原始高度 */
     overflow: hidden;
 }
 
@@ -92,26 +101,26 @@ h1 {
     background: linear-gradient(90deg, #4CAF50, #8BC34A);
     width: 0%;
     transition: width 0.5s ease;
-    border-radius: 10px;
+    border-radius: 6px; /* 与容器保持一致 */
 }
 
 .controls {
-    margin: 10px 0;
     display: flex;
-    gap: 8px;
     justify-content: center;
+    gap: 6px; /* 恢复原始按钮间距 */
+    margin: 8px 0; /* 恢复原始间距 */
+    flex-wrap: wrap; /* 允许按钮换行以适应空间 */
 }
 
 .controls button {
-    padding: 8px 14px;
-    margin: 0 3px;
-    font-size: 13px;
-    font-weight: bold;
+    padding: 5px 9px; /* 恢复原始按钮内边距 */
+    font-size: 12px; /* 恢复原始字体大小 */
     border: none;
-    border-radius: 5px;
+    border-radius: 16px; /* 恢复原始圆角 */
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    min-width: 60px; /* 恢复原始最小宽度 */
 }
 
 #startBtn {
@@ -151,14 +160,14 @@ h1 {
 }
 
 .status {
-    margin-top: 8px;
-    font-size: 15px;
+    margin-top: 4px; /* 恢复原始间距 */
+    font-size: 13px; /* 恢复原始字体大小 */
     font-weight: bold;
-    color: #4a5568;
-    padding: 6px;
-    background: rgba(102, 126, 234, 0.1);
-    border-radius: 10px;
-    border-left: 4px solid #667eea;
+    color: white;
+    padding: 4px; /* 恢复原始内边距 */
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 6px; /* 恢复原始圆角 */
+    border-left: 2px solid #ffffff; /* 恢复边框宽度 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -170,6 +179,12 @@ h1 {
     100% { transform: scale(1); }
 }
 
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 .timer-display.running {
     animation: pulse 1s infinite;
 }
@@ -177,6 +192,10 @@ h1 {
 .timer-display.finished {
     animation: pulse 0.5s infinite;
     color: #e53e3e;
+}
+
+#statusText.blinking {
+    animation: blink 0.5s infinite;
 }
 
 @media (max-width: 480px) {
