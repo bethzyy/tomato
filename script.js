@@ -178,7 +178,7 @@ class PomodoroTimer {
         this.startBtn.textContent = '开始计时';
         this.pauseBtn.disabled = true;
         this.timeInput.disabled = false;
-        this.statusText.textContent = '时间到！';
+        this.statusText.textContent = '休息一下吧';
         this.statusText.classList.add('blinking'); // 添加闪烁类
         this.timerDisplay.classList.remove('running');
         this.timerDisplay.classList.add('finished');
@@ -196,35 +196,40 @@ class PomodoroTimer {
     }
     
     playAlarm() {
-        // 创建简单的提示音
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
+        // 连续播放三次提示音
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                // 创建简单的提示音
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(600, audioContext.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime + 0.2);
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }, i * 600); // 每次间隔600毫秒
+        }
         
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-        oscillator.frequency.setValueAtTime(600, audioContext.currentTime + 0.1);
-        oscillator.frequency.setValueAtTime(800, audioContext.currentTime + 0.2);
-        
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.5);
-        
-        // 播放HTML audio元素作为备选
-        this.alarmSound.play().catch(() => {
-            // 如果音频播放失败，使用Web Audio API的提示音
-        });
+        // 播放HTML audio元素三次作为备选
+        setTimeout(() => this.alarmSound.play().catch(() => {}), 0);
+        setTimeout(() => this.alarmSound.play().catch(() => {}), 600);
+        setTimeout(() => this.alarmSound.play().catch(() => {}), 1200);
     }
     
     showNotification() {
         // 浏览器通知
         if ('Notification' in window && Notification.permission === 'granted') {
             new Notification('番茄闹钟', {
-                body: '时间到了！休息一下吧！',
+                body: '休息一下吧！',
                 icon: '🍅'
             });
         } else if ('Notification' in window && Notification.permission !== 'denied') {
